@@ -1,0 +1,58 @@
+C00A 000			jmp		start		#Jump to the address labled start 
+0040 001	array	dw		0 			#Declare the variable array
+0000 002	size	dw		0 			#Declare the variable size
+0000 003	index	dw		0 			#Declare the variable index
+0000 004 	zero	dw		0 			#Declare the constant zero
+0001 005 	one 	dw 		1 			#Declare the constant one
+3000 006	loadit 	dw		3000		#Declare the instruction loadit
+4000 007	storeit dw		4000		#Declare the instruction storeit
+0000 008 								#Space for changes
+0000 009 								#Space for changes
+1000 00A  	start	readH				#Let accumulator = the input size
+4002 00B			store 	size		#Let size = accumulator
+3002 00C	loop1	load 	size		#Let accumulator = size
+6003 00D			sub 	index		#Let accumulator = accumulator - index
+D01A 00E			jmpe				#If accumulator = 0, jump to address 01A
+E01A 00F 			jmpl			  	#If accumulator < 0, jump to address 01A
+3007 010 			load 	storeit 	#Form the instruction storeit
+5001 011			add 	array		#Let accumulator = accumulator + array
+5003 012			add 	index 		#Let accumulator = accumulator + index
+4015 013			store 	foo1 		#Let foo1 = accumulator
+1000 014			readH				#Let accumulator = the input value
+0000 015 	foo1	dw		0 			#Declare the variable foo1
+3003 016 			load 	index 		#Let accumulator = index
+5005 017 			add		one 		#Let accumulator = accumulator + one
+4003 018 			store 	index 		#Let index = accumulator
+C00C 019 			jmp 	loop1		#Jump to the address labled loop1
+3004 01A			load 	zero 		#Let accumulator = 0
+4003 01B			store 	index 		#Let index = accumulator
+3002 01C	loop2	load 	size		#Let accumulator = size
+6003 01D			sub 	index		#Let accumulator = accumulator - index
+D02A 01E			jmpe				#If accumulator = 0, jump to print1
+E02A 01F 			jmpl			  	#If accumulator < 0, jump to print1
+3006 020 			load 	loadit 		#Form the instruction loadit
+5001 021			add 	array		#Let accumulator = accumulator + array
+5003 022			add 	index 		#Let accumulator = accumulator + index
+4024 023 			store 	foo2 		#Let foo2 = accumulator
+0000 024 	foo2	dw		0 			#Declare the variable foo2
+1800 025  			printH 				#Print the array
+3003 026 			load 	index 		#Let accumulator = index
+5005 027 			add		one 		#Let accumulator = accumulator + one
+4003 028 			store 	index 		#Let index = accumulator
+C01C 029			jmp 	loop2		#Jump to the address labled loop2
+3002 02A			load 	size 		#Let accumulator = size
+6005 02B			sub 	one			#Let accumulator = accumulator - one
+4003 02C			store 	index 		#Let index = accumulator
+3003 02D	loop3 	load 	index 		#Let accumulator = index
+E039 02E			jmpl 	exit 		#If accumulator < 0, jump to the address labled exit
+3006 02F 			load 	loadit 		#Form the instruction loadit
+5001 030			add 	array		#Let accumulator = accumulator + array
+5003 031			add 	index 		#Let accumulator = accumulator + index
+4033 032 			store 	foo3 		#Let foo3 = accumulator
+0000 033 	foo3 	dw		0 			#Declare the variable foo3
+1800 034 			printH				#Print the array
+3003 035			load 	index 		#Let accumulator = index
+6005 036 			sub 	one			#Let accumulator = accumulator - one
+4003 037 			store 	index 		#Let index = accumulator
+C02D 038 			jmp 	loop3 		#Jump to the address labled loop3
+0000 039	exit 	halt				#Halt the IBCM

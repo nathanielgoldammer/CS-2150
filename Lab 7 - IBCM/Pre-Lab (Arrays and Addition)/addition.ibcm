@@ -1,0 +1,30 @@
+C00A 000			jmp		start	#Jump to the start
+0000 001	x 		dw		0 		#Declare the variable x
+0000 002	y 		dw		0 		#Declare the variable y
+0000 003	z 		dw		0 		#Declare the variable z
+0000 004	sum		dw		0 		#Declare the variable sum
+0000 005							#Space for changes
+0000 006							#Space for changes
+0000 007							#Space for changes
+0000 008 							#Space for changes
+0000 009 							#Space for changes
+1000 00A 	start	readH			#Let accumulator = the input
+4001 00B 			store	x		#Let x = accumulator
+1000 00C			readH			#Let accumulator = the input
+4002 00D			store	y 		#Let y = accumulator
+1000 00E			readH			#Let accumulator = the input
+4003 00F			store	z		#Let z = accumulator
+3004 010 			load	sum		#Let accumulator = sum
+5001 011 			add		x 		#Let accumulator = accumulator + x
+5002 012			add		y		#Let accumulator = accumulator + y
+5003 013			add		z		#Let accumulator = accumulator + z
+1800 014			printH			#Print the accumulator (sum)
+D017 015			jmpe	exit	#If accumulator = 0, then jump to exit
+C00A 016			jmp 	start	#Jump to the start
+3001 017 	exit	load	x 		#Let accumulator = x
+1800 018			printH	x 		#Print the accumulator (x)
+3002 019			load	y 		#Let accumulator = y
+1800 01A			printH  y		#Print the accumulator (y)
+3003 01B			load 	z		#Let accumulator = z
+1800 01C			printH	z		#Print the accumulator (z)
+0000 01D			halt			#Halt the IBCM	

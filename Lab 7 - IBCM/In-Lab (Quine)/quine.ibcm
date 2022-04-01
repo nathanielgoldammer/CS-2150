@@ -1,0 +1,23 @@
+C008 000			jmp		start		#Jump to address 00A (loop)
+0016 001	size	dw					#Declare the constant 0016 (size) 
+0001 002	one 	dw					#Declare the constant 0001 (one)
+0000 003	zero	dw					#Declare the constant 0000 (zero)
+0000 004 	index	dw					#Declare the variable index
+3000 005	loadit 	dw					#Declare the instruction 3000 (loadit)
+0000 006
+0000 007
+3003 008	start	load 	zero		#Let accumulator = 0000 (zero)
+4004 009			store	index		#Let index = accumulator (zero)
+3001 00A 	loop	load 	size		#Let accumulator = 0016 (size)
+6004 00B			sub		index		#Decrement accumulator by index
+D016 00C			jmpe 	exit		#If accumulator - index = 0, then jump to address 0016 (exit)
+3005 00D			load 	loadit		#Let accumulator = 3000 (loadit), Create the loadit instruction
+5004 00E 			add 	index		#Increment accumulator by index
+4010 00F			store	temp		#Let temp = accumulator
+0000 010 	temp	dw 					#Declare the variable temp
+1800 011 			printH				#Print accumulator
+3004 012 			load 	index 		#Let accumulator = index
+5002 013			add 	one			#Increment accumulator by 0001 (one)
+4004 014			store	index		#Let index = accumulator
+C00A 015			jmp 	loop 		#Jump to address 00A (loop)
+0000 016 	exit 	halt 				#Halt the IBCM
